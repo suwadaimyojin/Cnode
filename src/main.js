@@ -12,3 +12,13 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+Vue.filter("timeF",(t)=>{
+  var date =new Date();
+  var dY =  date.getFullYear();
+  var dMo = date.getMonth();
+  var dD =  date.getDay();
+  var dH =  date.getHours();
+  var dMi=  date.getMinutes();
+
+  console.log(t);
+})

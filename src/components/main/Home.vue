@@ -14,7 +14,7 @@
            <div class="content-bottom">
                <p>
                    <span >回复:{{i.reply_count}}/访问:{{i.visit_count}}</span>
-                   <span style="text-align: right">最近一次回复: {{i.last_reply_at}}</span>
+                   <span style="text-align: right">最近一次回复: {{i.last_reply_at|timeF(i.last_reply_at)}}</span>
                </p>
            </div>
   <!--         <div v-html="i.content"></div>-->
@@ -66,14 +66,17 @@
 
     .list-item{
         font-size: 15px;
-        margin: 10px;
+        margin: 20px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     display: flex;
         .user-img{
             img{
+                margin-bottom: 15px;
                 margin-right: 10px;
                 width: 60px;
                 height: 60px;
+                min-width: 60px;
+                min-height: 60px;
             }
         }
         .content{
@@ -105,7 +108,7 @@
             .content-bottom{
                 position: relative;
                 height: 100%;
-
+                color: gray;
                 text-align: left;
                 margin-left:  70px;
                 p{
