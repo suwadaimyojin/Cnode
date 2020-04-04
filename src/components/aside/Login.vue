@@ -1,13 +1,16 @@
 <template lang="html">
-    <div class="login">
+    <div class="login"  @click="fadeDia()">
         <div class="login-header">
             <i @click="showLogin" class="icon-back"></i>登录
         </div>
 
         <div class="input">
             <input v-model="inputVal" type="text" placeholder="请输入Access Token">
-            <button @click.stop.prevent="check(inputVal)">验证</button>
+            <button @click.stop.prevent="check(inputVal)" style="cursor: pointer">验证</button>
         </div>
+        <transition name="slide-fade">
+           <div class="failed" v-if="loginFailed">验证失败</div>
+        </transition>
 
         <div class="tips">
             <ul>
@@ -27,11 +30,15 @@
 
         data() {
             return {
+                loginFailed:false,
                 inputVal: ''
             }
         },
 
         methods: {
+            fadeDia(){
+                this.loginFailed =false;
+            },
             showLogin() {
                 this.$store.commit('showLogin', false);
                 this.$store.commit('showMsg', false);
@@ -42,19 +49,25 @@
                 }
                 this.axios.post('https://cnodejs.org/api/v1/accesstoken', {accesstoken: ak})
                     .then(result => {
+                        console.log(result);
                         if (result.status === 200) {
                             return result.data;
+                        }else {
+                            this.loginFailed =true;
                         }
                     })
-                    .catch(function (error) {
-                        console.log('验证失败',error);
+                    .catch(err=> {
+                        this.loginFailed =true;
                     })
                     .then(userInfo => {
                         this.$store.commit('updateUserInfo', userInfo);
                         this.$store.commit('updateAk', ak);
                         localStorage.userInfo = JSON.stringify(userInfo);
                         localStorage.ak = ak;
-                        this.showLogin();
+                        if(!this.loginFailed){
+                            this.showLogin();
+                        }
+
                     })
             }
         },
@@ -70,7 +83,20 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
+    .failed{
+        position: absolute;
+        width: 200px;
+        height: 100px;
+        top: 30%;
+        color: white;
+        border-radius: 10px;
+        font-weight: 1000;
+        line-height: 100px;
+        text-shadow: #E0E0E0 0px 0px 10px,0px 0px 20px;
+        box-shadow: #333 0px 0px 10px,0px 0px 20px;
+        background-color: #333;
+    }
     .login {
         position: absolute;
         display: flex;
@@ -92,7 +118,7 @@
             justify-content: center;
             width: 100%;
             height: 60px;
-            background-color: #2196f3;
+            background-color: #333;
             color: white;
             font-size: 1.4rem;
 
@@ -133,13 +159,19 @@
             button {
                 margin-top: 50px;
                 font-size: 1.3rem;
-                background-color: #2196f3;
+                background-color: #333;
                 color: white;
                 border: none;
-                padding: 5px 10px;
+                width: 100px;
+                padding: 10px 10px;
                 border-radius: 3px;
                 letter-spacing: 3px;
                 outline: none;
+                transition: all 0.4s ease;
+                &:hover{
+                    background-color: rgba(10,10,10,0.5);
+                    color:white;
+                }
             }
         }
         .tips {

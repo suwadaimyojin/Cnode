@@ -8,6 +8,7 @@ export default new Vuex.Store({
     tab: 'all',
     articleList: [],
     collectTopics: [],
+    isWaiting:false,
     isLoading: false,
     isMore: false,
     isShowAsideMenu: false,
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     ak: localStorage.ak || ''
   },
   mutations: {
+    showWaiting(state,e){
+      state.isWaiting =e;
+    },
     changeTab(state, payload) {
       state.isLoading = payload.hasOwnProperty('isLoading') ? payload.isLoading : state.isLoading;
       state.tab = payload.type || state.tab;

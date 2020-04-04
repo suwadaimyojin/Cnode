@@ -4,8 +4,10 @@
             <div class="menu">
 
                 <div class="user">
-                    <div class="user-avatar">
-                        <img @click="showLogin" :src="userInfo.avatar_url" alt="">
+                    <div class="user-avatar" @click="showLogin">
+                        <img  :src="userInfo.avatar_url" alt="">
+
+                       <!-- <div class="cover"></div>--><!-- <div class="cover"></div>-->
                         <!-- <img @click="showLogin" :src="userInfo.avatar_url || 'https://icdn.microzz.com/20170417_vue_cnode/icon-unlogin.svg'" alt=""> -->
                     </div>
                     <div class="username">
@@ -15,7 +17,7 @@
 
                 <div class="infos block">
 
-                    <router-link  :to="{query:'/'}" @click="showMsg" class="msg block">
+                    <router-link  :to="{query:'/'}" class="msg block">
                         <i class="icon-msg"></i>我的消息
                     </router-link>
 
@@ -78,6 +80,7 @@
 </script>
 
 <style lang="less" scoped>
+
     .aside-menu {
         position: absolute;
         display: flex;
@@ -102,10 +105,41 @@
                 align-items: center;
                 width: 100%;
                 height: 200px;
-                background-color: #2196F3;
+                background-color:#333;
                 color: white;
                 .user-avatar {
+                    overflow: hidden;
+                    border: 2px solid #f4f4f4;
+                    box-shadow: #E0E0E0 0px 1px 20px;
+                    background-color: #eee;
+                    width: 100px;
+                    height: 100px;
+                    box-sizing: border-box;
+                    border-radius: 50px;
+                    margin-bottom: 10px;
+                    transition: all 0.8s ease;
+                    cursor: pointer;
+                    position: relative;
+
+                    .cover{
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50px;
+                        background-color: #333;
+                        top: 0%;
+                        transform: translateX(50%);
+                        transition: all 0.3s ease;
+                        &:hover{
+                            transform: translateX(-50%);
+                        }
+                    }
+                    &:hover{
+
+                        box-shadow: #ffffff 0px 1px 30px;
+                    }
                     img {
+                        border: 1px solid #f4f4f4;
                         width: 100px;
                         height: 100px;
                         border-radius: 50px;

@@ -6,7 +6,9 @@
                 <div style="width: 100%;height: 4px;background-color:#fff;"></div>
                 <div style="width: 100%;height: 4px;background-color:#fff;"></div>
             </div>
-            <h1  >CNode社区</h1>
+          <!--  <h1  >CNode社区</h1>-->
+            <h1  ><img src="../static/img/cnodejs_light.svg" alt=""> </h1>
+
      </header>
 
       <div class="content">
@@ -19,7 +21,9 @@
               <router-link to="/advertise"> <h1>招聘</h1></router-link>-->
               <div v-for="(i,index) in this.op2" :key="index">
                   <div class="h1-cover"></div>
-                  <h1  :class="{strong:getClass(k)}"v-for="(val,k) in i" :key="k" @click="changeTab(k)"> {{k}}</h1>
+                 <div style="height: 50px;">
+                     <h1  :class="{strong:getClass(k)}"v-for="(val,k) in i" :key="k" @click="changeTab(k)"> {{k}}</h1>
+                 </div>
               </div>
 
           </div>
@@ -86,7 +90,7 @@ export default {
         transform: translateX(0%)!important;
     }
      .aside{
-         background-color: #2196F3;
+         background-color:#333;
          height: 92%;
          width: 35%;
          position: absolute;
@@ -96,13 +100,13 @@ export default {
      }
     .strong{
         font-weight: bolder!important;
-        font-size: 30px!important;
-        transform: translateY(-20%);
+        font-size: 28px!important;
+        transform: translateY(-10%);
     }
 
     header{
         display: flex;
-        background-color: #2196F3;
+        background-color:#333;
         color: white;
         .icon-msg{
 
@@ -119,7 +123,9 @@ export default {
         }
 
         h1{
-
+         img{
+             height: 40px;
+         }
             flex-grow: 1;
         }
     }
@@ -129,7 +135,7 @@ export default {
         .navbar{
             display: flex;
             justify-content: space-around;
-            background-color: #2196F3;
+            background-color:#333;
 
               div{
                   h1{ transition: all 0.2s ease;
@@ -146,7 +152,7 @@ export default {
                   }
                   .h1-cover{
                       position: absolute;
-                      border-bottom: 3px solid #fff;
+               /*       border-bottom: 3px solid #fff;*/
                       width: 0%;
                       left: 50%;
                       transform: translateX(-50%);
