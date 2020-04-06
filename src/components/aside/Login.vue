@@ -60,10 +60,14 @@
                         this.loginFailed =true;
                     })
                     .then(userInfo => {
-                        this.$store.commit('updateUserInfo', userInfo);
-                        this.$store.commit('updateAk', ak);
-                        localStorage.userInfo = JSON.stringify(userInfo);
-                        localStorage.ak = ak;
+
+                        if(userInfo){
+                            this.$store.commit('updateUserInfo', userInfo);
+                            this.$store.commit('updateAk', ak);
+                            localStorage.userInfo = JSON.stringify(userInfo);
+                            localStorage.ak = ak;
+                        }
+
                         if(!this.loginFailed){
                             this.showLogin();
                         }

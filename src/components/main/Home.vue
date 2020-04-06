@@ -9,7 +9,7 @@
        <div class="content" >
            <div class="content-top">
                <span class="type">{{i.tab}}</span>
-               <span class="title">{{i.title}}</span>
+            <router-link :to="'/topic/'+i.id"> <span class="title">{{i.title}}</span></router-link>
            </div>
            <div class="content-bottom">
                <p>
