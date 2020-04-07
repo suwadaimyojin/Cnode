@@ -11,6 +11,7 @@ export default new Vuex.Store({
     isWaiting:false,
     isLoading: false,
     isMore: false,
+      isShowTopic:false,
     isShowAsideMenu: false,
     isShowLogin: false,
     isShowInfo: false,
@@ -18,10 +19,17 @@ export default new Vuex.Store({
     isShowNewArticle: false,
     isShowAbout: false,
     scrollTop: 0,
+    msgCount:0,
     userInfo: localStorage.userInfo && JSON.parse(localStorage.userInfo) || {avatar_url: '', id: '', loginname: '', success: false},
     ak: localStorage.ak || ''
   },
   mutations: {
+    getMsgCount(state,e){
+      state.msgCount =e;
+    },
+      showTopic(state,e){
+        state.isShowTopic = e;
+      },
     showWaiting(state,e){
       state.isWaiting =e;
     },

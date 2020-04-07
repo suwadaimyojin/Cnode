@@ -9,7 +9,7 @@
        <div class="content" >
            <div class="content-top">
                <span class="type">{{i.tab}}</span>
-            <router-link :to="'/topic/'+i.id"> <span class="title">{{i.title}}</span></router-link>
+            <router-link :to="'/topic/'+i.id" @click.native="showTopic"> <span class="title">{{i.title}}</span></router-link>
            </div>
            <div class="content-bottom">
                <p>
@@ -37,6 +37,9 @@
           this. getHomeData();
         },
         methods: {
+            showTopic(){
+                this.$store.commit("showTopic",true);
+            },
             getHomeData(){
                 this.$store.commit("showWaiting",true);
              this.axios({

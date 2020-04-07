@@ -10,7 +10,7 @@
             <div class="h-bottom">
                <div >
                    <span class="create-at">●发布于{{this.topicData.last_reply_at|timeF()}}</span>
-                   <span class="user">●作者{{this.topicData.author.loginname}} </span>
+                   <span class="user">●作者<!--{{this.topicData.author.loginname}}--> </span>
                    <span class="reply-count">●{{this.topicData.visit_count}}次浏览</span>
                    <span class="type">● 来自{{this.topicData.tab}}</span>
                </div>
@@ -48,13 +48,14 @@
           getTopicData(){
               this.axios({
                   method:"get",
-                  url:`https://cnodejs.org/api/v1/topic/${this.id}`
+                  url:`https://cnodejs.org/api/v1/topic/${this.id}`,
+                  params:{
+                      "mdrender":"true"
+                  }
               }).then(res=>{
                   if(res.status ==200){
-
                       this.topicData = res.data.data;
                       this.markContent =marked(this.topicData.content);
-                      console.log(this.topicData);
                   }
 
               })

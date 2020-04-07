@@ -8,6 +8,11 @@
             </div>
           <!--  <h1  >CNode社区</h1>-->
             <h1  ><img src="../static/img/cnodejs_light.svg" alt=""> </h1>
+        <div>
+
+            <i @click="showMsg" v-show="ak" class="msg"></i>
+            <span v-show="ak" class="msg-count">{{msgCount}}</span>
+        </div>
 
      </header>
 
@@ -22,14 +27,18 @@
               <div v-for="(i,index) in this.op2" :key="index">
                   <div class="h1-cover"></div>
                  <div style="height: 50px;">
-                     <h1  :class="{strong:getClass(k)}"v-for="(val,k) in i" :key="k" @click="changeTab(k)"> {{k}}</h1>
+                         <h1  :class="{strong:getClass(k)}"v-for="(val,k) in i" :key="k" @click="changeTab(k)">
+                             <router-link :to="'/'+k">
+                             {{k}}
+                             </router-link>
+                         </h1>
                  </div>
               </div>
-
           </div>
+          <router-view/>
           <div class="main">
-              <Home v-if="this.default===String(Object.keys(this.op2[0]))" />
-              <Essence  v-if="this.default===String(Object.keys(this.op2[1]))"></Essence>
+        <!--      <Home v-if="this.default===String(Object.keys(this.op2[0]))" />
+                <Essence  v-if="this.default===String(Object.keys(this.op2[1]))"></Essence>-->
           </div>
       </div>
 
@@ -39,23 +48,36 @@
 
 <script>
 // @ is an alias to /src
-import Home from '../components/main/Home.vue'
-import Essence from '../components/main/Essence.vue'
+
 
 export default {
     data(){
         return{
+            msgCount: 0,
             asideOpenFlag:false,
             default:"Home",
             op: ['Home','Essence','Share','Q&A','Advertise'],
-            op2:[{"Home":"all"},{"Essence":"good"},{"Share":"share"},{"Q&A":"ask"},{"advertise":"job"}]
+            op2:[{"Home":"all"},{"Essence":"good"},{"Share":"share"},{"Q&A":"ask"},{"Advertise":"job"}]
         }
     },
     created(){
         this.default =String(Object.keys(this.op2[0]));
+        if (!this.ak) {
+            return;
+        }
+        this.axios.get('https://cnodejs.org/api/v1/message/count?accesstoken=' + this.ak)
+            .then(result => result.data)
+            .then(data => {
+                if (data.success) {
+                    this.msgCount = data.data;
+                }
+            })
 
     },
       methods:{
+          showMsg(){
+              this.$store.commit('showMsg', true);
+          },
           openAside(){
               this.$store.commit('showAsideMenu', true);
           },
@@ -73,16 +95,51 @@ export default {
 
           }
       },
+    computed: {
+        ak() {
+            return this.$store.state.ak;
+        }
+    },
 
   name: 'Main',
   components: {
-      Home,
-      Essence,
   }
 }
 
 </script>
 <style scoped lang="less">
+    .msg{
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width:  35px;
+        height: 35px;
+        margin: 20px 30px;
+        position: absolute;
+            right: 30px;
+            top: 3px;
+            background: url('../static/icons/icon-msg.svg') no-repeat;
+            background-size: contain;
+    }
+    .msg-count{
+        position: absolute;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        width: 20px;
+        height: 20px;
+        right: 40px;
+        top: 20px;
+        text-align: center;
+        background-color: #ff4081;
+        border-radius: 10px;
+        font-size: 80%;
+    }
     *{
         transition: all 0.2s ease;
     }
@@ -109,7 +166,6 @@ export default {
         background-color:#333;
         color: white;
         .icon-msg{
-
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -148,7 +204,9 @@ export default {
                       &:hover .h1-cover{
                           width: 100%;
                       }
-
+                 a{
+                     color: white;
+                 }
                   }
                   .h1-cover{
                       position: absolute;

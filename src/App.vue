@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-
       <transition name="slide-top">
           <div class="html-cover" v-if="this.$store.state.isWaiting">
               <button class="load"> </button>
           </div>
-
       </transition>
 
-    <router-view/>
+         <router-view/>
          <AsideBox class="aside"></AsideBox>
        <transition name="slide-fade">
            <Login class="login" v-if="this.$store.state.isShowLogin"></Login>
+           <Msg class="msg" v-if="this.$store.state.isShowMsg"></Msg>
        </transition>
 
   </div>
@@ -19,6 +18,7 @@
 <script>
  import AsideBox from './components/aside/AsideBox.vue'
  import Login from  './components/aside/Login.vue'
+ import Msg from "./components/aside/Msg";
 export default {
     name:"App",
      data(){
@@ -44,6 +44,7 @@ export default {
     },
 
   components:{
+      Msg,
   AsideBox,
       Login
   }
@@ -51,7 +52,12 @@ export default {
 }
 </script>
 <style>
-    .app{
+    a{
+        color: #08c;
+        text-decoration: none;
+    }
+    #app{
+        margin-top: -20px;
         position: relative;
         width: 100%;
         height: 100%;

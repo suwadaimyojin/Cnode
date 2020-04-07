@@ -17,10 +17,9 @@
 
                 <div class="infos block">
 
-                    <router-link  :to="{query:'/'}" class="msg block">
+                    <div @click="showMsg"  class="new block">
                         <i class="icon-msg"></i>我的消息
-                    </router-link>
-
+                    </div>
                     <div @click="showNewArticle" class="new block">
                         <i class="icon-new"></i>发布话题
                     </div>
@@ -59,6 +58,9 @@
             }
         },
         methods: {
+            showMsg(){
+                this.$store.commit('showMsg', true);
+            },
             showAsideMenu() {
                 this.$store.commit('showAsideMenu', false);
             },
@@ -109,7 +111,7 @@
                 color: white;
                 .user-avatar {
                     overflow: hidden;
-                    border: 2px solid #f4f4f4;
+
                     box-shadow: #E0E0E0 0px 1px 20px;
                     background-color: #eee;
                     width: 100px;
