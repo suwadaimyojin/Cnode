@@ -15,7 +15,7 @@
           <Msg class="msg" v-if="this.$store.state.isShowMsg"></Msg>
       </transition>
       <transition name="slide-fade">
-          <AboutMe class="about-me" v-if="this.$store.state.isShowAbout"></AboutMe>
+          <AboutMe class="about-me" v-if="this.$store.state.isShowAbout&&this.$store.state.ak"></AboutMe>
       </transition>
 
 
@@ -115,6 +115,9 @@ export default {
         }
     }
 .aside{
+    position: fixed!important;
+    top: 0;
+    left: 0;
     height: 100%!important;
 }
     .show-enter-active {

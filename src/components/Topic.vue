@@ -14,7 +14,13 @@
                    <span class="reply-count">●{{this.topicData.visit_count}}次浏览</span>
                    <span class="type">● 来自{{this.topicData.tab}}</span>
                </div>
-                <button class="fav">收藏</button>
+                <button class="fav" @click="favThis()" style="margin-right: 20px; width: 80px" v-if="this.$store.state.ak">收藏</button>
+                <button class="fav" @click="unFavThis()" v-if="isFav" style="width: 80px">取消收藏</button>
+                <transition name="slide-fade">
+                    <div class="favinfo" v-if="isFavSuccess">收藏成功</div>
+                    <div class="favinfo" v-if="isUnFavSuccess">取消成功</div>
+                </transition>
+
             </div>
         </div>
         <div class="main" v-html="this.markContent">
@@ -31,7 +37,10 @@
             return {
                 id:"",
                 topicData:[],
-                markContent:""
+                markContent:"",
+                isFavSuccess:false,
+                isUnFavSuccess:false,
+                isFav:false,
             }
         },
         created(){
@@ -58,18 +67,68 @@
                   }
 
               })
-          }
+          },
+            unFavThis(){
+                this.axios({
+                    method: "post",
+                    url: `https://cnodejs.org/api/v1/topic_collect/de_collect`,
+                    data: {
+                        "accesstoken": this.$store.state.ak,
+                        "topic_id": this.id
+                    }
+                }).then(res=>{
+                    if(res.status ==200){
+                        this.isUnFavSuccess =true;
+                        this.isFav =false;
+                        setTimeout(e=>{
+                            this.isUnFavSuccess =false;
+                        },1000)
+                    }
+                })
+            },
+            favThis(){
+                this.axios({
+                    method:"post",
+                    url:`https://cnodejs.org/api/v1/topic_collect/collect`,
+                    data:{
+                        "accesstoken": this.$store.state.ak,
+                        "topic_id": this.id
+                    }
+                }).then(res=>{
+                    if(res.status ==200){
+                        console.log(res);
+                        this.isFavSuccess =true;
+                        this.isFav =true;
+                        setTimeout(e=>{
+                            this.isFavSuccess =false;
+                        },1000)
+                    }
+
+                })
+            }
         },
         components: {}
     }
 </script>
 
-<style  scoped lang="less">
+<style   lang="less">
 
-    .main{
-        div{
-
-        }
+    .markdown-text img{
+        width: 100%!important;
+    }
+    .favinfo{
+        position: fixed;
+        width: 200px;
+        height: 100px;
+        border-radius: 5px;
+        color: white!important;
+        font-size: 30px!important;
+        line-height: 100px!important;
+        text-align: center;
+        background-color:#80bd01;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
 
     }
     .topic{

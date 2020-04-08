@@ -83,7 +83,11 @@
          /*       this.$store.commit('showNewArticle', true);*/
             },
             showAbout() {
-                this.$store.commit('showAbout', true);
+              if(this.$store.state.ak){
+                  this.$store.commit('showAbout', true);
+              }else {
+                  this.$store.commit('showLogin', true);
+              }
             }
         },
         data(){

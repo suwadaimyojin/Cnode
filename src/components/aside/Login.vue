@@ -13,13 +13,17 @@
         </transition>
 
         <div class="tips">
+
+
             <ul>
+                <li>该项目所有接口均由<a href="https://cnodejs.org/ ">https://cnodejs.org/</a>提供</li>
+                <li>仅供学习使用，具体详情可登陆官网查看。</li>
                 <li>为了更好的体验请登录😊</li>
                 <li>输入CNode账号的Access Token😄</li>
                 <li>在个人中心可以获取Access Token😉</li>
                 <li>调用的是官方API,请放心使用🤗</li>
             </ul>
-            <p>测试账号：8f084b7f-2b9d-42b4-a09b</p>
+            <p>提供测试账号： 8f084b7f-2b9d-42b4-a09b-9d5c5dbdc040</p>
         </div>
 
     </div>
@@ -92,6 +96,13 @@
 </script>
 
 <style lang="less" scoped>
+    ul{
+        list-style: none;
+    }
+    li{
+
+        margin-bottom: 10px;
+    }
     .failed{
         position: absolute;
         width: 200px;
@@ -106,7 +117,7 @@
         background-color: #333;
     }
     .login {
-        position: absolute;
+        position: fixed;
         display: flex;
         flex-direction: column;
         // justify-content: center;

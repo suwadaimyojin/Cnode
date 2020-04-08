@@ -24,9 +24,8 @@
               <router-link to="/share">     <h1>分享</h1>   </router-link>
               <router-link to="/q&a">       <h1>问答</h1>     </router-link>
               <router-link to="/advertise"> <h1>招聘</h1></router-link>-->
-              <div v-for="(i,index) in this.op2" :key="index">
-                  <div class="h1-cover"></div>
-                 <div style="height: 50px;">
+              <div v-for="(i,index) in this.op2" :key="index" class="h1-bigbox">
+                 <div class="h1-smbox" style="height: 50px;">
                          <h1  :class="{strong:getClass(k)}"v-for="(val,k) in i" :key="k" @click="changeTab(k)">
                              <router-link :to="'/'+k">
                              {{k}}
@@ -162,7 +161,6 @@ export default {
     .strong{
         font-weight: bolder!important;
         font-size: 28px!important;
-        transform: translateY(-10%);
     }
 
     header{
@@ -191,7 +189,8 @@ export default {
         }
     }
     .content{
-        max-height: 800px;
+        height: 100%;
+        min-height: 760px;
         overflow: auto;
         .navbar{
             display: flex;
@@ -199,33 +198,32 @@ export default {
             background-color:#333;
             height: 60px;
 
-              div{
-                  h1{
-                      transition: all 0.2s ease;
-                      /*    border-bottom:2px solid white ;*/
-                      cursor: pointer;
-                      color: white;
-                      font-size: 20px;
-                      font-weight: normal;
-                      position: relative;
-                      &:hover .h1-cover{
-                          width: 100%;
-                      }
-                 a{
+         .h1-bigbox{
+             position: relative;
+             color: white;
+             .h1-smbox{
+                 color: white;
+                 h1{
+                     transition: all 0.2s ease;
+                     /*    border-bottom:2px solid white ;*/
+                     cursor: pointer;
                      color: white;
+                     font-size: 20px;
+                     margin: auto;
+                     font-weight: normal;
+                     position: relative;
+                     top: 50%;
+                     transform: translateY(-50%);
+                     &:hover{
+                         width: 100%;
+                     }
+                     a{
+                         color: white;
+                     }
                  }
-                  }
-                  .h1-cover{
-                      position: absolute;
-               /*       border-bottom: 3px solid #fff;*/
-                      width: 0%;
-                      left: 50%;
-                      transform: translateX(-50%);
-                      height: 100%;
-                      transition: all 0.5s ease;
 
-                  }
-              }
+             }
+         }
 
 
         }
