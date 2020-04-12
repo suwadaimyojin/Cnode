@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="info-date">
-                        注册于：{{ changeTime(user.create_at) }}
+                        注册于：{{ user.create_at|timeF }}
                     </div>
                 </div>
 
@@ -84,6 +84,9 @@
                         </div>
                     </div>
                 </div>
+
+
+                <button class="logout" @click="logOut"> 登出</button>
             </div>
 
         </transition>
@@ -117,22 +120,33 @@
                 this.$store.commit('showLogin', true);
                 return;
             }
-            // 收藏
+            this.$store.commit("showWaiting",true);
             this.axios.get(`https://cnodejs.org/api/v1/topic_collect/${this.userInfo.loginname}`)
                 .then(result => result.data.data)
                 .then(collectTopics => this.$store.commit('updateCollect', collectTopics))
                 .then(() => this.axios.get(`https://cnodejs.org/api/v1/user/${this.userInfo.loginname}`))
                 .then(result => result.data.data)
                 .then(user => this.user = user)
-                .then(() => this.isShowContent = true)
+                .then(() => {
+                    this.isShowContent = true;
+                    this.$store.commit("showWaiting",false);
+                })
 
 
 
 
         },
         methods: {
+            logOut(){
+
+                localStorage.setItem("ak","");
+                localStorage.setItem("userInfo","");
+                this.$store.commit('showAbout', false);
+                this.$router.go(0)
+
+            },
             showInfo() {
-                this.$store.commit('showInfo', false);
+                this.$store.commit('showAbout', false);
             },
             view() {
                 this.$store.commit('showInfo', false);
@@ -142,7 +156,25 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
+    .logout{
+        width: 80px;
+        height: 80px;
+        cursor: pointer;
+        margin-top: 50px;
+        transition: all 0.3s ease;
+        &:hover{
+            opacity: 0.6;
+
+        }
+        display: inline-block;
+        height: 40px;
+        padding: 0 10px;
+        border: none;
+        border-radius: 3px;
+        background-color: #333;
+        color: white;
+    }
     .slide-fade-enter-active {
         transition: all .3s ease;
     }
@@ -224,11 +256,17 @@
                 border-radius: 4px;
                 .collect-title {
                     width: 100%;
+                  /*  color: white;
+                    background-color: #333;*/
                     padding-bottom: 10px;
+
                     border-bottom: 1px solid rgba(0, 0, 0, .1);
                 }
                 .collect-item {
+         /*           color: white;
+                    background-color: #333;*/
                     display: flex;
+
                     padding: 5px 5px 0 5px;
                     align-items: center;
 

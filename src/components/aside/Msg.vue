@@ -75,11 +75,13 @@
                 this.$store.commit('showLogin', true);
                 return;
             }
+            this.$store.commit("showWaiting",true);
             this.axios.get(`https://cnodejs.org/api/v1/messages?accesstoken=${this.ak}`)
                 .then(result => result.data.data)
                 .then(msg => {
                     this.msg = msg;
-                   this.$store.commit("getMsgCount",this.msg.has_read_messages.length)
+                   this.$store.commit("getMsgCount",this.msg.has_read_messages.length);
+                    this.$store.commit("showWaiting",false);
                 })
         },
         methods: {

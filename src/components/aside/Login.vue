@@ -48,6 +48,7 @@
                 if (!ak.trim()) {
                     return;
                 }
+                this.$store.commit("showWaiting",true);
                 this.axios.post('https://cnodejs.org/api/v1/accesstoken', {accesstoken: ak})
                     .then(result => {
                         console.log(result);
@@ -56,9 +57,11 @@
                         }else {
                             this.loginFailed =true;
                         }
+                        this.$store.commit("showWaiting",false);
                     })
                     .catch(err=> {
                         this.loginFailed =true;
+                        this.$store.commit("showWaiting",false);
                     })
                     .then(userInfo => {
 
@@ -72,7 +75,7 @@
                         if(!this.loginFailed){
                             this.showLogin();
                         }
-
+                        this.$store.commit("showWaiting",false);
                     })
             }
         },

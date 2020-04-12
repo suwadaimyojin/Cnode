@@ -11,7 +11,10 @@ import Topic from '../components/Topic.vue'
 Vue.use(VueRouter)
 
 const routes = [
-
+  {
+    path:"/",
+    redirect:Home
+  },
   {
     path: '/',
     name: 'Main',

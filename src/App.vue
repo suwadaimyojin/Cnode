@@ -10,8 +10,15 @@
          <AsideBox class="aside"></AsideBox>
        <transition name="slide-fade">
            <Login class="login" v-if="this.$store.state.isShowLogin"></Login>
-           <Msg class="msg" v-if="this.$store.state.isShowMsg"></Msg>
        </transition>
+      <transition name="slide-fade">
+          <Msg class="msg" v-if="this.$store.state.isShowMsg"></Msg>
+      </transition>
+      <transition name="slide-fade">
+          <AboutMe class="about-me" v-if="this.$store.state.isShowAbout"></AboutMe>
+      </transition>
+
+
 
   </div>
 </template>
@@ -19,6 +26,7 @@
  import AsideBox from './components/aside/AsideBox.vue'
  import Login from  './components/aside/Login.vue'
  import Msg from "./components/aside/Msg";
+ import AboutMe from './components/aside/AboutMe.vue'
 export default {
     name:"App",
      data(){
@@ -46,18 +54,23 @@ export default {
   components:{
       Msg,
   AsideBox,
-      Login
+      Login,
+      AboutMe
   }
 
 }
 </script>
 <style>
+    html,body{
+        width: 100%;
+        height: 100%;
+    }
     a{
         color: #08c;
         text-decoration: none;
     }
     #app{
-        margin-top: -20px;
+/*        margin-top: -20px;*/
         position: relative;
         width: 100%;
         height: 100%;

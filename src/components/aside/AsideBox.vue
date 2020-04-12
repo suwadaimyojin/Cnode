@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <transition name="slide-left">
         <div v-show="isShowAsideMenu" class="aside-menu">
             <div class="menu">
@@ -23,14 +23,17 @@
                     <div @click="showNewArticle" class="new block">
                         <i class="icon-new"></i>发布话题
                     </div>
+                    <div class="cotent-info" v-if="mark">
+                        该功能因接口不提供无法使用关闭。
+                    </div>
 
-                    <div @click="showInfo" class="info block">
+                    <div @click="showAbout" class="info block">
                         <i class="icon-info"></i>个人中心
                     </div>
 
-                    <div @click="showAbout" class="about block">
+             <!--       <div class="about block">
                         <i class="icon-about"></i>关于
-                    </div>
+                    </div>-->
 
                     <div class="cnode"></div>
 
@@ -48,6 +51,7 @@
 
 <script>
     export default {
+
         name: 'asideMenu',
         computed: {
             isShowAsideMenu() {
@@ -72,16 +76,51 @@
                 this.$router.push('/')
             },
             showNewArticle() {
-                this.$store.commit('showNewArticle', true);
+                this.mark =true;
+                setTimeout(e=>{
+                    this.mark =false;
+                },4000)
+         /*       this.$store.commit('showNewArticle', true);*/
             },
             showAbout() {
                 this.$store.commit('showAbout', true);
+            }
+        },
+        data(){
+            return {
+                mark:false
             }
         }
     }
 </script>
 
 <style lang="less" scoped>
+    .cotent-info{
+        display: block;
+        width: 400px;
+        height: 100px;
+        background-color: #333;
+        color: white;
+         position: absolute;
+        top: 50%;
+        left: 45%;
+        transform: translate(50% 50%);
+        text-align: center;
+        line-height: 100px;
+        padding: 10px 10px;
+        border-radius: 10px;
+        letter-spacing: 3px;
+        outline: none;
+        transition: all 0.4s ease;
+        text-shadow: 0px 0px 10px cornflowerblue,
+        0px 0px 20px white;
+
+        &:hover{
+            background-color: rgba(10,10,10,0.5);
+            color:white;
+        }
+
+    }
 
     .aside-menu {
         position: absolute;
@@ -101,6 +140,7 @@
             background-color: white;
             box-shadow: 0 0 12px gray;
             .user {
+                padding-top: 40px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -151,6 +191,7 @@
 
                 .username {
                     font-size: 1.2rem;
+                    margin: 20px;
                 }
             }
 

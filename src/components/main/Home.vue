@@ -46,7 +46,6 @@
                  method:'get',
                  url:`https://cnodejs.org/api/v1/topics?page=1&tab=all`
              }).then(res=>{
-                 console.log(res.data.data);
                  this.homeData = res.data.data
                  this.$store.commit("showWaiting",false);
              })

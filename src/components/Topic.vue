@@ -20,7 +20,6 @@
         <div class="main" v-html="this.markContent">
 
         </div>
-        <h1>topic</h1>
     </div>
 </div>
 </template>
@@ -65,10 +64,9 @@
     }
 </script>
 
-<style  lang="less">
+<style  scoped lang="less">
 
     .main{
-        margin-top: 20px;
         div{
 
         }
@@ -78,6 +76,8 @@
         background-color: #e5e5e5;
     .big{
         font-size: 100%;
+        height: 100%;
+        overflow: hidden;
         .head{
             border-bottom: 1px solid #e5e5e5;
             .h-top{
@@ -141,7 +141,8 @@
 
         padding: 20px;
         background-color: #fff;
-        width: 80%;
+        width: 95%;
+        min-height:650px;
         margin: auto;
         text-align: left;
         p{

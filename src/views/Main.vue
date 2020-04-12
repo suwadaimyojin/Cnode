@@ -41,8 +41,7 @@
                 <Essence  v-if="this.default===String(Object.keys(this.op2[1]))"></Essence>-->
           </div>
       </div>
-
-
+      <footer></footer>
   </div>
 </template>
 
@@ -108,6 +107,11 @@ export default {
 
 </script>
 <style scoped lang="less">
+    footer{
+        width: 100%;
+        height: 80px;
+        background-color: #333;
+    }
     .msg{
         cursor: pointer;
         display: flex;
@@ -164,6 +168,7 @@ export default {
     header{
         display: flex;
         background-color:#333;
+        height: 80px;
         color: white;
         .icon-msg{
             display: flex;
@@ -186,15 +191,17 @@ export default {
         }
     }
     .content{
-        max-height: 850px;
+        max-height: 800px;
         overflow: auto;
         .navbar{
             display: flex;
             justify-content: space-around;
             background-color:#333;
+            height: 60px;
 
               div{
-                  h1{ transition: all 0.2s ease;
+                  h1{
+                      transition: all 0.2s ease;
                       /*    border-bottom:2px solid white ;*/
                       cursor: pointer;
                       color: white;
@@ -216,7 +223,6 @@ export default {
                       transform: translateX(-50%);
                       height: 100%;
                       transition: all 0.5s ease;
-
 
                   }
               }
