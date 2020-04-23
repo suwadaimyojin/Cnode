@@ -1,5 +1,4 @@
-# cdntest
-see https://fushimiinari-jcy.github.io/Cnode/src/#/
+
 ## Project setup
 ```
 npm install
